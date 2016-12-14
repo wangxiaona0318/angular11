@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html ng-app="appModule">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css"/>
+    <style>
+        [ng-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body ng-controller="cartCtrl">
+<table class="table table-bordered" ng-cloak="">
+    <tr>
+        <th><input type="checkbox" ng-model="selectedAll" ng-click="all()"/>全选</th>
+        <th>商品</th>
+        <th>单价</th>
+        <th>数量</th>
+        <th>小计</th>
+        <th>操作</th>
+    </tr>
+    <tr ng-repeat="v in products track by $index">
+        <!--在angular中所有input元素的取值，设置值，都是从ng-model获取到的-->
+        <td><input type="checkbox" ng-model="v.isSelected" ng-click="one()"/></td>
+        <td>{{v.name}}</td>
+        <td>{{v.price}}</td>
+        <td><button ng-disabled="v.count<=1?true:false" ng-click="v.count = v.count-1">-</button><input type="text" ng-model="v.count"/><button ng-click="v.count = v.count+1">+</button></td>
+        <td>{{v.count*v.price}}</td>
+        <td>
+            <button class="btn btn-danger" ng-click="del(v)">删除</button>
+        </td>
+        <!--成功success 删除 danger 修改 warning 蓝色primary 默认default-->
+    </tr>
+    <tr>
+        <td>
+            <button ng-click="deleteAll()">删除所有选中</button>
+        </td>
+        <td></td>
+        <td></td>
+        <td>总价：{{totalPrice()}}</td>
+        <td>折后总价：{{totalPrice()*name}}</td>
+        <td>
+            <select  ng-model="name" ng-change="sel()">
+                <option value="{{c.tech}}" ng-repeat="c in coast track by $index">{{c.client}}</option>
+            </select>
+        </td>
+    </tr>
+</table>
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule', []);
+    app.controller('cartCtrl', ['$scope', function ($scope) {
+        /*$scope.flag = true;*/
+        $scope.products = [
+            {isSelected: true, name: 'iphone6s', price: 2000, count: 1, id: 1},
+            {isSelected: false, name: 'iphone6', price: 3000, count: 3, id: 2},
+            {isSelected: true, name: 'iphone5s', price: 1000, count: 3, id: 3},
+            {isSelected: true, name: 'iphone6s plus', price: 5000, count: 4, id: 4}
+        ];
+        $scope.del = function (product) {
+            var id = product.id;
+            $scope.products = $scope.products.filter(function (item) {
+                return item.id != id;
+            });
+        };
+        $scope.all = function () {
+            $scope.products.forEach(function (item) {
+                item.isSelected = $scope.selectedAll;
+            });
+        };
+
+        $scope.one = function () {
+            var flag = true;
+            $scope.products.forEach(function (item) {
+                if (item.isSelected == false) {
+                    flag = false;
+                }
+            });
+            $scope.selectedAll = flag;
+        }
+        $scope.totalPrice = function () {
+            var total = 0;
+            $scope.products.forEach(function (item) {
+                if (item.isSelected) {
+                    console.log(item.price, item.count);
+                    total += item.price * item.count;
+                }
+            });
+            return total;
+        };
+        $scope.deleteAll = function () {
+            $scope.products = $scope.products.filter(function (item) {
+                return !item.isSelected;
+            })
+        }
+        $scope.coast = [{client: 0.5, tech: 0.5}, {client: 0.2, tech: 0.2}];
+        $scope.name = '0.5';
+        $scope.sel = function(){
+        }
+    }]);
+</script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html ng-app><!--默认ng-app全部加到html上，表示整个项目都归angular所管理。指定ng-app后会产生一个rootScope(window)全局作用域-->
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<!---->
+<input type="text" ng-model="name"/>
+{{name}}
+<div ng-bind="name"></div><!--等同于{{}}}-->
+<script src="node_modules/angular/angular.js"></script>
+
+<script>
+    //引入angular后提供一个angular对象，实现最基础的双向数据绑定，视力怎么能影响数据变化呢？只有表单元素才能实现双向中数据绑定
+    //要创建一个入口点，启动项目提供一个根节点，从哪里开始管理angular项目
+    angular.run(function($rootScope){
+        $rootScope.name = '123';
+    })
+</script>
+</body>
+</html>

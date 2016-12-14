@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html ng-app="appModule">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<!--
+1.组件式指令：有模板的，可以复用，一般用指令封闭功能
+2.装饰型指令：增加属性的
+指令是否依赖于控制器：不依赖
+-->
+<my-dire></my-dire><!--元素-->
+<div my-dire></div><!--属性-->
+<div class="my-dire"></div><!--样式-->
+<!-- directive:zf-xxx --><!--注释-->
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    
+    var app = angular.module('appModule',[]);
+    app.directive('myDire',function(){//需要转换成驼峰命名法，标签名为-连接
+
+        return {
+            restrict:'EAC',
+            replace:true,
+            template:'<h1>welcome</h1>'//模板中根节点保证只有一个，防止报错
+        }
+    });
+</script>
+</body>
+</html>

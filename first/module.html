@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html ng-app="appModule">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div ng-controller="aCtrl">{{name}}</div>
+<div>{{name}}</div>
+<input type="text" ng-model="name"/>
+
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    /*
+     * ng-app ng-model ng-bind ng-cloak ng-controller
+     * */
+    /*
+     * 1 创建模块 2在模块中创建控制器或者叫做作用域
+     * */
+    /*
+     * 1 模块的名字
+     * 2 模块的依赖,如果没有依赖的模块增加一个空数组
+     * 写数组的是创建，不写表示获取
+     * */
+    var app = angular.module('appModule', []);//创建子作用域，防止污染全局变量
+    app.run(function ($rootScope) {
+        $rootScope.name = 'rootName';
+    });
+    app.controller('aCtrl', function ($scope) {//第一个参数是控制器的名字，第二个是控制器的定义
+        $scope.name = '123';
+        console.log(1)
+    });
+    /*控制器特点：控制器可以嵌套，控制器会产生一个独立作用域，作用范围与DOM一样，不要复用控制器，而且不要操作DOM*/
+</script>
+</body>
+</html>

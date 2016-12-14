@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html ng-app="appModule">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .show{
+            display: block;
+        }
+        .hide{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<!--
+点击标题 内容发生切换（显示/隐藏）
+-->
+<div ng-click="flag=!flag">标题</div>
+<div ng-hide="flag">内容</div>
+<!--dom操作控制显示隐藏还是隐藏显示 ng-if会产生一个独立作用域，来存放删除掉的内容-->
+
+
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+</script>
+</body>
+</html>

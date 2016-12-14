@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html ng-app="appModule">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css"/>
+</head>
+<body class="">
+<panel title="hwhw">这是第一篇文章</panel>
+<panel></panel>
+<panel></panel>
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.directive('panel',function(){
+        return {
+            restrict:'E',
+            replace:true,
+            templateUrl:'panels.html',
+            transclude:true,//想让内容放到什么位置上就在放置的标签上增加ng-transclude属性.带有ng-transclude的标签会生成一个作用域
+            /*link:function(scope,element,attrs){
+                scope.tit = attrs.title;
+                console.log(scope.tit)
+            },*/
+            scope:{title:'@title'}//取的是指令上属性对应的字符串，如果在当前作用域下声明的名字和属性名相同@符引用不用加名字scope:{title:'@'}
+           // scope:true//{}.两种都可以，是有区别的
+        }
+    })
+</script>
+</body>
+</html>

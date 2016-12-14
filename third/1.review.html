@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html ng-app="appModule">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        [ng-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+{{url}}
+<hello ng-cloak url="{{url}}" fn = 'fn(a)'></hello>
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule', []);
+    app.run(function ($rootScope) {
+        $rootScope.url = 'http://localhost';
+        $rootScope.fn = function (who) {
+            alert(who);
+        }
+    });
+    app.directive('hello', function () {//指令默认是没有作用域的
+        return {
+            link:function(scope,element,attrs){
+              /*
+              * scope:当前作用域(指令)，和自己声明的独立作用域是一个，如果没有独立作用域就是根作用域
+              * element 当前指令的jQuery对象
+              * */
+                scope.a = 100;
+            },
+            transclude:true,//保留指令中的内容
+            replace:true,//只要为true，template只能有一个根节点
+            restrict: 'ACME',//限制使用范围
+            template: `<h1 ng-click="fn({a:1})">{{url}}</h1>`,
+            // scope:true,//会产生作用域，仍然可以取作用域上的东西
+            scope: {
+                url: '@',
+                fn: '&fn'
+            },//会产生作用域，不能取到上级作用域的内容，通过属性可以传递数据(数据类型 ：字符串 变量 函数)
+
+
+        }
+    });
+</script>
+</body>
+</html>

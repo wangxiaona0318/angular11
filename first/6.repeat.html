@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html ng-app="appModule">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body ng-controller="aCtrl">
+<ul>
+    <li ng-repeat="(key,v) in attr track by $index">
+        {{v.name}}
+        <ul>
+            <li ng-repeat="a in v.type track by $index">{{a}}</li>
+        </ul>
+    </li>
+</ul>
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.controller('aCtrl',['$scope',function($scope){
+        $scope.attr=[{name:'1',type:['11','12']},{name:'2',type:['22','23',24]},{name:'3',type:['33','34']}];
+    }])
+</script>
+</body>
+</html>

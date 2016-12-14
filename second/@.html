@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html ng-app="appModule">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css"/>
+</head>
+<body ng-controller="myCtrl">
+
+<input type="text" ng-model="name"/>
+<cur-text top="title" bottom="{{tail}}" fn="submit(a)"></cur-text>
+
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.controller('myCtrl',function($scope){
+        $scope.titile = 'title';
+        $scope.tail = 'tail';
+        $scope.fn = function(a){
+            alert(a);
+        }
+    });
+    app.directive('curText',function(){
+        return {
+            restrict:'E',
+            template:'<h1>{{title}}{{tail}}</h1><input type="text" ng-model="tail">',
+            //templateUrl:'panels.html',
+            //scope:true,//仍然可以找到上级的作用域 儿子和父亲仍然有关系
+            //scope:{title:'@'}//通过这种方式，只能通过属性传递props
+           // scope:{title:'=title'}
+        }//用@符取的是当前指令上属性的字符串(单向)。用=取得是当前指令上属性对应的作用域上的变量(双向)
+    })
+</script>
+</body>
+</html>

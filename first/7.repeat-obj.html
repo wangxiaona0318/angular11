@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html ng-app="appModule">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body ng-controller="myCtrl">
+<ul>
+    <li ng-repeat="(key,o) in obj">{{key}}</li>
+</ul>
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.controller('myCtrl', ['$scope',function($scope){
+        $scope.obj = {
+            name:'px',
+            age:8,
+            type:'school',
+            address:'回龙观'
+        }
+    }])
+</script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html ng-app="appModule">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css"/>
+</head>
+<body ng-controller="myCtrl">
+<panel top="title" bottom="{{tail}}" fn="submit(a)"></panel>
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.controller('myCtrl', ['$scope', function ($scope) {
+        $scope.titile = 'title';
+        $scope.tail = 'tail';
+        $scope.fn = function(a){
+            alert(a);
+        }
+    }]);
+    app.directive('panel',function(){
+        return {
+            restrict:'E',
+            replace:true,
+            templateUrl:'panels.html'
+        }
+    })
+</script>
+</body>
+</html>

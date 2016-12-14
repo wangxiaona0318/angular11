@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html ng-app="appModule">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        div{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100px;
+            height: 100px;
+            background: red;
+        }
+    </style>
+</head>
+<body>
+ <div drag class="a" id="b">fdf</div>
+ <script src="node_modules/angular/angular.js"></script>
+ <script>
+     var app = angular.module('appModule',[]);
+     app.directive('drag',function(){
+         return {
+             restrict:'A',
+             link:function(scope,element,attrs){
+                 console.log(scope);
+                 console.log(element);
+                 console.log(attrs.class);
+             }
+         }
+     })
+     /*app.directive('drag',function(){
+        return {
+            restrict:'A',
+            link:function(scope,element,attrs){
+                element.on('mousedown',function(e){
+                    var disX = e.pageX - this.offsetLeft;
+                    var disY = e.pageY - this.offsetTop;
+                    angular.element(document).on('mousemove',function(e){
+                        element.css({left:e.pageX - disX + 'px',top: e.pageY - disY + 'px'});
+                    });
+                    e.preventDefault();
+                    angular.element(document).on('mouseup',function(e){
+                        angular.element(document).off();
+                    });
+                });
+            }
+        }
+     });*/
+ </script>
+</body>
+</html>

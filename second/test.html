@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html ng-app="appModule">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css"/>
+</head>
+<body ng-controller="myCtrl">
+<my-text title="title" tail="{{tail}}" body="body">亲爱的母亲</my-text>
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule', []);
+    app.controller('myCtrl', function ($scope) {
+        $scope.title = 'title';
+        $scope.tail = 'tail';
+        $scope.body = 'beautiful girl'
+        $scope.click = function(a){
+            console.log(a)
+        }
+    });
+    app.directive('myText', function () {
+        return {
+            restrict: 'E',
+            templateUrl: 'panels.html',
+            transclude: true,
+            link:function(scope,element,attr){
+                scope.title='dddd',/*如果这里写了，下面scope也写了，那么这里起作用。*/
+                tail= 'fdfdddd',
+                body='rerer'
+            },
+            scope: {
+                title:'='
+            }
+        };
+    })
+</script>
+</body>
+</html>
